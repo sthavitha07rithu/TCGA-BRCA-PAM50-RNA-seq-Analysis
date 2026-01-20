@@ -212,8 +212,6 @@ The pipeline automatically discovers these files recursively.
 
 ### Step 4: Verify Download Structure
 
-After download, the directory structure should resemble:
-
 The input data directory follows the standard GDC download structure, consisting of a manifest file (gdc_manifest.txt) and multiple subdirectories named by unique UUIDs. Each UUID directory contains a single STAR-generated augmented gene count file (*.rna_seq.augmented_star_gene_counts.tsv) corresponding to an individual TCGA-BRCA RNA-seq sample. Together, these directories provide the gene-level unstranded count data used to construct the expression matrix for downstream analysis.
 
 No manual renaming or file movement is required.
