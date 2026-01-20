@@ -153,3 +153,75 @@ TCGAbiolinks
 clusterProfiler
 AnnotationHub
 ensembldb
+
+## Data Download Instructions (GDC Data Transfer Tool)
+
+### Prerequisites
+
+To reproduce the analysis, RNA-seq count files must be downloaded from the **Genomic Data Commons (GDC)**.
+
+You will need:
+- A GDC account: https://portal.gdc.cancer.gov/
+- The **GDC Data Transfer Tool (CLI)**
+- A GDC **manifest file** (`gdc_manifest.txt`)
+
+---
+
+### Step 1: Install the GDC Data Transfer Tool
+
+Download the appropriate version for your operating system from:
+
+https://gdc.cancer.gov/access-data/gdc-data-transfer-tool
+
+Verify installation:
+
+```bash
+gdc-client --version
+```
+
+### Step 2: Obtain the Manifest File
+
+1. Visit the GDC Data Portal
+2. Apply the following filters:
+   - Project: TCGA-BRCA
+   - Data Type: Gene Expression Quantification
+   - Workflow Type: STAR - Counts
+3. Add files to the cart
+4. Download the manifest file (gdc_manifest.txt)
+
+Place the manifest file in the root directory of this repository.
+
+Important: Do not commit access tokens or controlled-access files to GitHub.
+
+---
+
+### Step 3: Download the Data via CLI
+
+From the repository root directory, run:
+
+gdc-client download -m gdc_manifest.txt
+
+This will:
+- Create UUID-named subdirectories
+- Download augmented STAR gene count files
+- Preserve the directory structure expected by the analysis script
+
+The pipeline automatically discovers these files recursively.
+
+---
+
+### Step 4: Verify Download Structure
+
+After download, the directory structure should resemble:
+
+.
+├── gdc_manifest.txt
+├── <UUID_1>/
+│   └── *.rna_seq.augmented_star_gene_counts.tsv
+├── <UUID_2>/
+│   └── *.rna_seq.augmented_star_gene_counts.tsv
+└── ...
+
+No manual renaming or file movement is required.
+<img width="814" height="1568" alt="image" src="https://github.com/user-attachments/assets/4cc3ef00-d996-4973-a5ff-d908ba73489d" />
+
